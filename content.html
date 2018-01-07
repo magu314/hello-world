@@ -1,0 +1,1329 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="content-type" content="text/html; charset=Shift_JIS">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>ジャンケンポケモンカード</TITLE>
+<SCRIPT language="JavaScript">
+function outputLAYER(layName,html){
+    if(document.getElementById){           //IE5 NN6 Mozilla用
+      document.getElementById(layName).innerHTML=html
+    } else
+    if(document.all){                     //IE4用
+      document.all(layName).innerHTML=html
+    } else
+    if(document.layers) {                      //NN4用
+       with(document.layers[layName].document){
+         open()
+         write(html)
+         close()
+      }
+    }
+}
+function moveLAYER(layName,x,y){
+    if(document.getElementById){ //NN6,IE5用
+      document.getElementById(layName).style.left=x
+      document.getElementById(layName).style.top=y
+    }
+    else if(document.layers)document.layers[layName].moveTo(x,y)  //NN4用
+    else if(document.all){
+      document.all(layName).style.pixelLeft=x  //IE4用
+      document.all(layName).style.pixelTop=y
+    }
+}
+function getINNERWIDTH(){
+    var pageWIDTH=null
+    //pageWIDTH=window.innerWidth         //NN用
+    //if(document.all)    pageWIDTH=document.body.clientWidth //IE用
+    pageWIDTH=document.body.clientWidth
+      return pageWIDTH
+}
+function shuffle(a,n){//シャッフル
+	for(i=n-1;i>1;i--){j=Math.floor(n*Math.random());d=a[i];a[i]=a[j];a[j]=d;}
+	for(i=n-1;i>1;i--){j=Math.floor(n*Math.random());d=a[i];a[i]=a[j];a[j]=d;}
+	for(i=n-1;i>1;i--){j=Math.floor(n*Math.random());d=a[i];a[i]=a[j];a[j]=d;}
+	for(i=n-1;i>1;i--){j=Math.floor(n*Math.random());d=a[i];a[i]=a[j];a[j]=d;}
+	for(i=n-1;i>1;i--){j=Math.floor(n*Math.random());d=a[i];a[i]=a[j];a[j]=d;}
+}
+
+var centermode=1;
+
+function imgset(){
+	//画像読み込み
+	num0=new Image(10,15);num0.src="0.gif";
+	num1=new Image(10,15);num1.src="1.gif";
+	num2=new Image(10,15);num2.src="2.gif";
+	num3=new Image(10,15);num3.src="3.gif";
+	num4=new Image(10,15);num4.src="4.gif";
+	num5=new Image(10,15);num5.src="5.gif";
+	num6=new Image(10,15);num6.src="6.gif";
+	num7=new Image(10,15);num7.src="7.gif";
+	num8=new Image(10,15);num8.src="8.gif";
+	num9=new Image(10,15);num9.src="9.gif";
+	card1=new Image(60,90);card1.src="gu.gif";
+	card2=new Image(60,90);card2.src="ti.gif";
+	card3=new Image(60,90);card3.src="pa.gif";
+	card4=new Image(60,90);card4.src="hissatsu.gif";
+	card5=new Image(60,90);card5.src="shield.gif";
+	card6=new Image(60,90);card6.src="box.gif";
+	card7=new Image(60,90);card7.src="fuuin.gif";
+	card8=new Image(60,90);card8.src="bomb.gif";
+	card9=new Image(60,90);card9.src="gt.gif";
+	card10=new Image(60,90);card10.src="gp.gif";
+	card11=new Image(60,90);card11.src="tp.gif";
+	card12=new Image(60,90);card12.src="tatsu.gif";
+	card13=new Image(60,90);card13.src="toumei.gif";
+	card14=new Image(60,90);card14.src="big.gif";
+	card15=new Image(60,90);card15.src="yaku.gif";
+	card16=new Image(60,90);card16.src="snake.gif";
+	card17=new Image(60,90);card17.src="barrier.gif";
+	card18=new Image(60,90);card18.src="dragon.gif";
+	card19=new Image(60,90);card19.src="inazuma.gif";
+	card20=new Image(60,90);card20.src="kyusyu.gif";
+	card21=new Image(60,90);card21.src="all.gif";
+	cardura=new Image(60,90);cardura.src="ura.gif";
+	card99=new Image(60,90);card99.src="null.gif";
+	condition1=new Image(15,15);condition1.src="doku.gif";
+	condition2=new Image(15,15);condition2.src="rai.gif";
+	condition3=new Image(15,15);condition3.src="kyo.gif";
+	condition4=new Image(15,15);condition4.src="nullsp.gif";
+	waku1=new Image(60,60);waku1.src="waku1.gif";
+	waku2=new Image(60,60);waku2.src="waku2.gif";
+	waku3=new Image(60,60);waku3.src="waku3.gif";
+	waku4=new Image(60,60);waku4.src="waku4.gif";
+	waku5=new Image(60,60);waku5.src="waku5.gif";
+	waku6=new Image(60,60);waku6.src="waku6.gif";
+	waku7=new Image(60,60);waku7.src="waku7.gif";
+	waku8=new Image(60,60);waku8.src="waku8.gif";
+	msg="<table border=5 width=180><tr><td align=center bgcolor=FFFFFF><font color=black font size=-1>JAN-CARD<br>copyright 2001 Shirafuji<br><B>ジャンケンポケモンカード</B></font><p><a href='JavaScript:stgselect();'><font color=blue>はじめから</font></a><br><a href='JavaScript:menu(1);'><font color=blue>つづきから</font></a></p></font></td></tr></table>"
+	outputLAYER("mainwin",msg);
+	centermode=1
+	moveCENTER();
+
+	for(i=0;i<36;i++){
+		pldeck[i]=99;enedeck[i]=99;
+	}
+
+	loadFlag=true;
+}
+
+function moveCENTER(){
+	var movex=90;
+	var movey=130;
+	switch(centermode){
+		case 1://1P2P
+			movex=90;movey=130;
+			break;
+		case 2://モンスターセレクト
+			movex=190;movey=70;
+			break;
+		case 3://モンスターカード
+			movex=150;movey=40;
+			break;
+		case 4://ショップ
+			movex=180;movey=20;
+			break;
+		case 5://バトル前
+			movex=120;movey=50;
+			break;
+		case 6://デッキ決定
+			movex=180;movey=30;
+			break;
+		case 7://バトル中
+			movex=110;movey=125;
+			break;
+		case 8://バトル勝利
+			movex=90;movey=100;
+			break;
+		default:
+			break;
+	}
+	moveLAYER("mainwin",Math.floor(getINNERWIDTH()/2)-movex,movey);
+}
+
+var loadFlag=false;
+var gameFlag=false;
+var modeFlag=false;//trueならバトル前画面
+var bossFlag=false;//7匹倒すと出現
+var timeid=0;
+var cardtype=new Array("フシギダネ","ゼニガメ","ヒトカゲ","遠吠え","リフレクター","物拾い","吹き飛ばし","プレゼント","ダネとゼニ","ダネとカゲ","ゼニとカゲ","手札焼き","身代わり","剣の舞","ミルク飲み","毒ガス","カウンター","手助け","催眠術","願い事","カミナリ");
+var monsteralive=new Array(true,true,true,true,true,true,true,true);
+var monstername=new Array("凡骨","手抜","適当","普通","本気","全力","社長","神");
+var mc=new Array(168);//monster card 21*8
+mc[0]=5;mc[1]=5;mc[2]=5;mc[3]=5;mc[4]=5;mc[5]=5;mc[6]=5;
+mc[7]=1;mc[8]=0;mc[9]=0;mc[10]=0;mc[11]=0;mc[12]=0;mc[13]=0;
+mc[14]=0;mc[15]=0;mc[16]=0;mc[17]=0;mc[18]=0;mc[19]=0;mc[20]=0;
+
+mc[21]=15;mc[22]=7;mc[23]=7;mc[24]=1;mc[25]=3;mc[26]=0;mc[27]=2;
+mc[28]=0;mc[29]=0;mc[30]=0;mc[31]=0;mc[32]=0;mc[33]=1;mc[34]=0;
+mc[35]=0;mc[36]=0;mc[37]=0;mc[38]=0;mc[39]=0;mc[40]=0;mc[41]=0;
+
+mc[42]=8;mc[43]=8;mc[44]=12;mc[45]=1;mc[46]=1;mc[47]=0;mc[48]=0;
+mc[49]=0;mc[50]=0;mc[51]=0;mc[52]=0;mc[53]=1;mc[54]=1;mc[55]=1;
+mc[56]=0;mc[57]=1;mc[58]=1;mc[59]=0;mc[60]=1;mc[61]=0;mc[62]=0;
+
+mc[63]=8;mc[64]=8;mc[65]=8;mc[66]=2;mc[67]=2;mc[68]=0;mc[69]=2;
+mc[70]=0;mc[71]=0;mc[72]=0;mc[73]=1;mc[74]=1;mc[75]=1;mc[76]=1;
+mc[77]=1;mc[78]=0;mc[79]=1;mc[80]=0;mc[81]=0;mc[82]=0;mc[83]=0;
+
+mc[84]=5;mc[85]=8;mc[86]=5;mc[87]=3;mc[88]=3;mc[89]=0;mc[90]=0;
+mc[91]=0;mc[92]=0;mc[93]=0;mc[94]=0;mc[95]=0;mc[96]=2;mc[97]=2;
+mc[98]=0;mc[99]=1;mc[100]=2;mc[101]=2;mc[102]=2;mc[103]=1;mc[104]=0;
+
+mc[105]=4;mc[106]=4;mc[107]=7;mc[108]=4;mc[109]=0;mc[110]=0;mc[111]=0;
+mc[112]=0;mc[113]=2;mc[114]=2;mc[115]=2;mc[116]=0;mc[117]=0;mc[118]=3;
+mc[119]=1;mc[120]=2;mc[121]=1;mc[122]=2;mc[123]=2;mc[124]=0;mc[125]=0;
+
+mc[126]=5;mc[127]=5;mc[128]=5;mc[129]=1;mc[130]=0;mc[131]=0;mc[132]=2;
+mc[133]=2;mc[134]=3;mc[135]=2;mc[136]=3;mc[137]=4;mc[138]=0;mc[139]=0;
+mc[140]=0;mc[141]=2;mc[142]=0;mc[143]=0;mc[144]=2;mc[145]=0;mc[146]=0;
+
+mc[147]=4;mc[148]=4;mc[149]=3;mc[150]=0;mc[151]=0;mc[152]=0;mc[153]=0;
+mc[154]=0;mc[155]=3;mc[156]=3;mc[157]=3;mc[158]=1;mc[159]=0;mc[160]=1;
+mc[161]=1;mc[162]=2;mc[163]=3;mc[164]=3;mc[165]=1;mc[166]=2;mc[167]=0;
+
+var mydeck=new Array(9,9,9,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0);//デッキに入れるカード
+var rare=new Array(0,0,0,0,0,0,0,0,0,0,0,0,0);//所持レアカード
+var rareexp=new Array(500,500,500,2000,1000,1000,2000,2000,2000,3000,3000,3000,5000);//値段
+var exp=0;//現在のおこづかい
+var totalexp=0;//今まで獲得したおこづかい
+
+//以下バトル用変数
+var turn=0;//ターン数
+var eneid=0;//敵番号
+var dealcount=0;//カード配布用変数
+var pldeck=new Array(36);//自分デッキ（戦闘用）
+var enedeck=new Array(36);//敵デッキ（戦闘用）
+var mycard=0;//自分カード枚数
+var enecard=0;//敵カード枚数
+var mylife=100;//自分体力
+var enelife=100;//敵体力
+var field=new Array(99,99,99,99);//出したカードID 0～4（自分２＋敵２）無い場合は９９
+var spflag=new Array(0,0,0,0,0,0);//敵・自分の毒雷巨
+var te=new Array(0,0,0,0,0,0);//フシギダネヒトカゲヒトカゲの枚数（自分３＋敵３）
+var secondcard=new Array(5,5,5,7,10,5,5,5,7,10,5,5,5,7,10,0,1,3,5,5,0,1,5,10,10,2,5,10,10,10,3,5,5,7,10,3,3,5,7,10);//２枚目カードを出す確率
+var bombFlag=false;
+
+function menu(n){
+	if(loadFlag){
+		switch(n){
+			case 1://パスワードがあればどうぞ
+				var pass=document.cookie.substring(5,document.cookie.length);
+				cookiedata=pass.split(",");
+				if(cookiedata[0]==0){
+					alert("セーブデータがありません。\nはじめからになります。")
+				}
+				else{
+					//セーブデータの代入
+					for(i=0;i<8;i++){
+						monsteralive[i]=eval(cookiedata[i]);
+					}
+					for(i=0;i<21;i++){
+						mydeck[i]=parseInt(cookiedata[i+8]);
+					}
+					for(i=0;i<13;i++){
+						rare[i]=parseInt(cookiedata[i+29]);
+					}
+					exp=parseInt(cookiedata[42]);
+					totalexp=parseInt(cookiedata[43]);
+
+					bossFlag=true;
+					for(i=0;i<7;i++){
+						if(monsteralive[i]) bossFlag=false;
+					}
+					if(bossFlag) alert("「ウキキキーッ！！\nどうやら私を本気の本気にさせたようね！！\n私の最強デッキで勝負よ！」");
+				}
+				stgselect();
+				break;
+			case 2://ショップ
+				msg="<table border=5 cellspacing=0 width=360><tr><td align=center bgcolor=FFFFFF><font color=black>カードショップ<br>貯めたおこづかいでレアカードが入手できます<br><img src='waku1.gif'><br><font size=-1>おこづかい: "+exp+"<br>今までの合計おこづかい: "+totalexp+"</font><table border=0 cellpadding=5 cellspacing=0>";
+				for(i=0;i<7;i++){
+					msg+="<tr><td bgcolor=FFC365><font color=black size=-1>"+cardtype[i+8]+"</font></td>";
+					msg+="<td bgcolor=FFF9C7><font color=black size=-1>"+rareexp[i]+"</font></td>";
+					msg+="<td bgcolor=FFF9C7><font color=black size=-1>"+rare[i]+"枚</font></td>";
+					msg+="<td bgcolor=FFF9C7>";
+					if(rare[i]<9) msg+="<a href='JavaScript:buycard("+i+");'><font color=blue size=-1>買</font></a>";
+					msg+="</td>";
+					if(i<6){
+						msg+="<td bgcolor=FFC365><font color=black size=-1>"+cardtype[i+15]+"</font></td>";
+						msg+="<td bgcolor=FFF9C7><font color=black size=-1>"+rareexp[i+7]+"</font></td>";
+						msg+="<td bgcolor=FFF9C7><font color=black size=-1>"+rare[i+7]+"枚</font></td>";
+						msg+="<td bgcolor=FFF9C7>";
+						if(rare[i+7]<9) msg+="<a href='JavaScript:buycard("+(i+7)+");'><font color=blue size=-1>買</font></a>";
+						msg+="</td>";
+					}
+					msg+="</tr>";
+				}
+				msg+="</table><p><a href='JavaScript:stgselect();'>";
+				msg+="<font color=black>戻る</font></a></p></font></td></tr></table>";
+				outputLAYER("mainwin",msg);
+				centermode=4;
+				moveCENTER();
+				break;
+			default:break;
+		}
+	}
+}
+
+function stgselect(){
+	modeFlag=false;
+	msg="<table border=5 cellspacing=0 width=360><tr><td align=center bgcolor=FFFFFF><font color=black>ラブリナのレベルを選択してください。<br><table border=1><tr>";
+	if(bossFlag){
+		msg+="<td align=center><a href='JavaScript:battleimg(7);'><img src='waku5.gif' border=0><br><font color=blue>神</font></a><br><br><a href='JavaScript:showcard(7);'><font color=black>カード</font></a></td>";
+	}
+	else{
+		for(i=0;i<7;i++){
+			if(monsteralive[i]) msg+="<td align=center width=45><a href='JavaScript:battleimg("+i+");'><img src='mon.gif' border=0><br><font color=blue>"+monstername[i]+"</font></a><br><br><a href='JavaScript:showcard("+i+");'><font color=black>カード</font></a></td>";
+			else msg+="<td align=center width=45><font color=red size=+2>勝ち</font></td>";
+		}
+	}
+	msg+="</tr></table><p align=center><a href='JavaScript:menu(2)'><font color=black>ショップへ行く</font></a><br><a href='JavaScript:setting(0)'><font color=black>デッキセッティング</font></a></p></font></td></tr></table>";
+	outputLAYER("mainwin",msg);
+	centermode=2;
+	moveCENTER();
+}
+
+function showcard(n){
+	//カード総枚数調査
+	var totalcard=0
+	for(i=0;i<21;i++){
+		totalcard+=mc[n*21+i];
+	}
+
+	msg="<table border=5 cellspacing=0 width=300><tr><td align=center bgcolor=FFFFFF><font color=black>"+monstername[n]+" のデッキ<br><table border=0 cellpadding=5 cellspacing=0>";
+	for(i=0;i<8;i++){
+		if(i<3){
+			msg+="<tr><td bgcolor=60BD60><font color=black size=-1>"+cardtype[i]+"</font></td>";
+			msg+="<td bgcolor=A3F1A3><font color=black size=-1>"+mc[n*21+i]+"</font><br></td>";
+		}
+		else{
+			msg+="<tr><td bgcolor=FF919><font color=black size=-1>"+cardtype[i]+"</font></td>";
+			msg+="<td bgcolor=FFB5B5><font color=black size=-1>"+mc[n*21+i]+"</font><br></td>";
+		}
+		msg+="<td bgcolor=FFC365><font color=black size=-1>"+cardtype[8+i]+"</font></td>";
+		msg+="<td bgcolor=FFF9C7><font color=black size=-1>"+mc[n*21+8+i]+"</font><br></td>";
+		if(i<5){
+			msg+="<td bgcolor=FFC365><font color=black size=-1>"+cardtype[16+i]+"</font></td>";
+			msg+="<td bgcolor=FFF9C7><font color=black size=-1>"+mc[n*21+16+i]+"</font><br></td>";
+		}
+		if(i==6){
+			msg+="<td colspan=2><font color=black size=-1>カード: "+totalcard+"</font><br></td>";
+		}
+		if(i==7){
+			msg+="<td colspan=2><font color=black size=-1>ライフ: "+(100+(36-totalcard)*5)+"</font><br></td>";
+		}
+		msg+="</tr>";
+	}
+	if(!modeFlag) msg+="</table><p><a href='JavaScript:stgselect();'>";
+	else msg+="</table><p><a href='JavaScript:battleimg("+(n)+")'>";//
+	msg+="<font color=black>戻る</font></a></p></font></td></tr></table>";
+	outputLAYER("mainwin",msg);
+	centermode=3;
+	moveCENTER();
+}
+
+function buycard(n){
+	if(rareexp[n]<=exp){
+		exp-=rareexp[n];
+		rare[n]++;
+		alert(cardtype[n+8]+" を入手しました");
+		menu(2);
+	}
+	else alert("おこづかいが足りません");
+}
+
+function setting(n){
+	//カード総枚数調査
+	var totalcard=0
+	for(i=0;i<21;i++){
+		totalcard+=mydeck[i];
+	}
+	msg="<table border=5 cellspacing=0 width=360><tr><td align=center bgcolor=FFFFFF><font color=black>デッキセッティング<br>★使用デッキは36枚以内です★<table border=0 cellpadding=5 cellspacing=0>";
+	for(i=0;i<8;i++){
+		if(i<3){
+			msg+="<tr><td bgcolor=60BD60><font color=black size=-1>"+cardtype[i]+"</font></td>";
+			msg+="<td bgcolor=A3F1A3><font color=black size=-1>"+mydeck[i]+"</font><br></td>";
+			msg+="<td bgcolor=A3F1A3><a href='JavaScript:cngcard("+i+","+n+");'><font color=blue size=-1>変</font></a><br></td>";
+		}
+		else{
+			msg+="<tr><td bgcolor=FF919><font color=black size=-1>"+cardtype[i]+"</font></td>";
+			msg+="<td bgcolor=FFB5B5><font color=black size=-1>"+mydeck[i]+" / 9</font><br></td>";
+			msg+="<td bgcolor=FFB5B5><a href='JavaScript:cngcard("+i+","+n+");'><font color=blue size=-1>変</font></a><br></td>";
+		}
+		msg+="<td bgcolor=FFC365><font color=black size=-1>"+cardtype[8+i]+"</font></td>";
+		msg+="<td bgcolor=FFF9C7><font color=black size=-1>"+mydeck[8+i]+" / "+rare[i]+"</font><br></td>";
+		msg+="<td bgcolor=FFF9C7><a href='JavaScript:cngcard("+(8+i)+","+n+");'><font color=blue size=-1>変</font></a><br></td>";
+		if(i<5){
+			msg+="<td bgcolor=FFC365><font color=black size=-1>"+cardtype[16+i]+"</font></td>";
+			msg+="<td bgcolor=FFF9C7><font color=black size=-1>"+mydeck[16+i]+" / "+rare[8+i]+"</font><br></td>";
+			msg+="<td bgcolor=FFF9C7><a href='JavaScript:cngcard("+(16+i)+","+n+");'><font color=blue size=-1>変</font></a><br></td>";
+		}
+		if(i==6){
+			msg+="<td colspan=2><font color=black>合計: "+totalcard+"</font><br></td>";
+		}
+		if(i==7){
+			msg+="<td colspan=2><font color=black>ライフ: "+(100+(36-totalcard)*5)+"</font><br></td>";
+		}
+		msg+="</tr>";
+	}
+	if(!modeFlag) msg+="</table><p><a href='JavaScript:stgselect();'>";
+	else msg+="</table><p><a href='JavaScript:battleimg("+(n)+")'>";//バトル画面へ
+	msg+="<font color=black>戻る</font></a></p></font></td></tr></table>";
+	outputLAYER("mainwin",msg);
+	centermode=6;
+	moveCENTER();
+}
+
+function cngcard(n,stage){
+	//カード総枚数調査
+	var totalcard=0
+	for(i=0;i<21;i++){
+		totalcard+=mydeck[i];
+	}
+	var num=0;
+	if(n>7){//レアカード
+		if(rare[n-8]==0) alert("そのカードは１枚も持っていません");
+		else num=prompt(cardtype[n]+"カードを何枚持っていきますか？(合計が36枚越えると無効になります)\n（0 枚以上 "+Math.min(rare[n-8],36-totalcard+mydeck[n])+" 枚まで）",mydeck[n]);
+
+		if(num==null) num=mydeck[n];
+
+		if(num>=0 && num<=Math.min(rare[n-8],36-totalcard+mydeck[n])){
+			mydeck[n]=eval(Math.floor(num));
+			setting(stage);
+		}
+		else alert("無効な入力です");
+	}
+	else{
+		if(n>2){//SPカード
+			num=prompt(cardtype[n]+"カードを何枚持っていきますか？(合計が36枚越えると無効になります)\n（0 枚以上 "+Math.min(9,36-totalcard+mydeck[n])+" 枚まで）",mydeck[n]);
+
+			if(num==null) num=mydeck[n];
+
+			if(num>=0 && num<=Math.min(9,36-totalcard+mydeck[n])){
+				mydeck[n]=eval(Math.floor(num));
+				setting(stage);
+			}
+			else alert("無効な入力です");
+		}
+		else{
+			num=prompt(cardtype[n]+"カードを何枚持っていきますか？(合計が36枚越えると無効になります)\n（0 枚以上 "+(36-totalcard+mydeck[n])+" 枚まで）",mydeck[n]);
+
+			if(num==null) num=mydeck[n];
+
+			if(num>=0 && num<=36-totalcard+mydeck[n]){
+				mydeck[n]=eval(Math.floor(num));
+				setting(stage);
+			}
+			else alert("無効な入力です");
+		}
+	}
+}
+
+function battleimg(n){
+	//カード総枚数調査
+	mycard=0;
+	enecard=0;
+	for(i=0;i<21;i++){
+		mycard+=mydeck[i];
+		enecard+=mc[n*21+i];
+	}
+	if(mycard<=0){
+		alert("戦闘にはカードが１枚以上必要です");
+	}
+	else{
+		mylife=100+(36-mycard)*5;
+		enelife=100+(36-enecard)*5;
+		modeFlag=true;
+		msg="<table border=5 cellspacing=0 width=240><tr><td align=center bgcolor=FFFFFF><font color=black>BATTLE DATA<br><table border=1>";
+		msg+="<tr><td bgcolor=ff6666><img src='waku5.gif'></td><td align=center bgcolor=FFF9D1>"+monstername[n]+"<br>VS<br>アナタ</td><td bgcolor=6666ff><img src='waku1.gif'></td></tr>";
+		msg+="<tr><td bgcolor=FFCDCD align=center>"+enelife+"</td><td align=center bgcolor=FFF9D1><img src='life.gif' alt='life'></td><td bgcolor=C9DFFF align=center>"+mylife+"</td></tr>";
+		msg+="<tr><td bgcolor=FFCDCD align=center>"+enecard+"</td><td align=center bgcolor=FFF9D1><img src='card.gif' alt='card'></td><td bgcolor=C9DFFF align=center>"+mycard+"</td></tr>";
+		msg+="<tr><td bgcolor=FFCDCD align=center><a href='JavaScript:showcard("+n+");'><font color=blue>見る</font></a></td><td align=center bgcolor=FFF9D1>デッキ</td><td bgcolor=C9DFFF align=center><a href='JavaScript:setting("+n+");'><font color=blue>変更</font></td></tr>";
+		msg+="</table><p align=center><a href='JavaScript:gobattle("+n+");'><font color=blue>ゲームスタート！</font></a></p><p align=center><a href='JavaScript:stgselect();'><font color=black>選択画面へ</font></a></p></font></td></tr></table>";
+		outputLAYER("mainwin",msg);
+		centermode=5;
+		moveCENTER();
+	}
+}
+
+function gobattle(n){
+	//変数の初期化
+	turn=0;
+	dealcount=0;
+	for(i=0;i<36;i++){
+		pldeck[i]=99;
+		enedeck[i]=99;
+	}
+	for(i=0;i<4;i++) field[i]=99;
+	for(i=0;i<6;i++){
+		spflag[i]=false;
+		te[i]=0;
+	}
+
+	//敵のカードを変数に保管する
+	var a=0;
+	for(i=0;i<21;i++){
+		for(j=0;j<mc[n*21+i];j++){
+			enedeck[a]=i;
+			a++;
+		}
+	}
+	a=0;
+	for(i=0;i<21;i++){
+		for(j=0;j<mydeck[i];j++){
+			pldeck[a]=i;
+			a++;
+		}
+	}
+	eneid=n;
+	shuffle(enedeck,enecard);
+	shuffle(pldeck,mycard);
+	//alert(pldeck[0]+"."+pldeck[35]);
+	//画像のセッティング
+	for(i=1;i<6;i++) document.images[i].src=card99.src;
+	for(i=16;i<20;i++) document.images[i].src=card99.src;
+	for(i=30;i<35;i++) document.images[i].src=card99.src;
+	imgcheck(0);
+	msg="<table border=5 cellspacing=0 width=220><tr><td align=center bgcolor=FFFFFF><font color=black>カードを５枚引きます</font></td></tr></table>"
+	outputLAYER("mainwin",msg);
+	centermode=7;
+	moveCENTER();
+
+	timeid=setInterval("dealcard();",500);
+}
+
+function dealcard(){
+	dealcount++;
+	if(dealcount>5){
+		clearInterval(timeid);
+		gameFlag=true;
+		comthink();
+	}
+	else{
+		eval("document.images[dealcount].src=card"+(enedeck[dealcount-1]+1)+".src;");
+		eval("document.images[dealcount+29].src=card"+Math.min(pldeck[dealcount-1]+1,99)+".src;");
+	}
+}
+
+function comthink(){
+	//顔画像の初期化
+	if(enelife<31) document.images[0].src=waku8.src;
+	else document.images[0].src=waku5.src;
+	if(mylife<31) document.images[35].src=waku4.src;
+	else document.images[35].src=waku1.src;
+
+	msg="<table border=5 cellspacing=0 width=220><tr><td align=center bgcolor=FFFFFF><font color=black>出すカードを選択してください<br><br><a href='JavaScript:syoubu();'><font color=blue>バトル開始！！</font></a><br>";
+	if(bombFlag) msg+="プレゼントは光りだした！";
+	msg+="</font></td></tr></table>";
+	turn++;
+	//コンピュータのカード決定
+	//１枚目
+	if(spflag[1]==0){
+		var jancount=0;
+		for(i=0;i<5;i++){
+			if(enedeck[i]<3 || (enedeck[i]>7 && enedeck[i]<11)){
+				jancount++;
+			}
+		}
+		if(jancount==0){
+			jancount=Math.floor(Math.random()*Math.min(5,enecard));
+			field[2]=jancount;
+		}
+		else{
+			a=Math.floor(Math.random()*jancount);
+			while(enedeck[a]>10 || (enedeck[a]>2 && enedeck[a]<8)){
+				a=(a+1)%5;
+			}
+			field[2]=a;
+		}
+		document.images[16].src=cardura.src;
+
+		//２枚目
+		b=Math.random()*10;
+		if(b<secondcard[eneid*5+5-jancount]){
+			b=Math.floor(Math.random()*Math.min(5,enecard));
+			//if(b>=a) b++;
+			field[3]=b;
+			if(field[2]==field[3]) field[3]=99;
+			else document.images[17].src=cardura.src;
+		}
+		else field[3]=99;
+	}
+	else{
+		field[2]=99;field[3]=99;
+	}
+
+	outputLAYER("mainwin",msg);
+}
+
+function imgcheck(n){//0:普通　1:体力のみ
+	for(i=0;i<6;i++){
+		spflag[i]=Math.max(0,spflag[i]-1);
+	}
+	eval("document.images[7].src=num"+Math.floor(enelife/100)+".src");
+	eval("document.images[8].src=num"+Math.floor(enelife/10)%10+".src");
+	eval("document.images[9].src=num"+(enelife%10)+".src");
+	eval("document.images[21].src=num"+Math.floor(mylife/100)+".src");
+	eval("document.images[22].src=num"+Math.floor(mylife/10)%10+".src");
+	eval("document.images[23].src=num"+(mylife%10)+".src");
+	if(n==0){
+		eval("document.images[11].src=num"+Math.floor(enecard/10)+".src");
+		eval("document.images[12].src=num"+(enecard%10)+".src");
+		eval("document.images[25].src=num"+Math.floor(mycard/10)+".src");
+		eval("document.images[26].src=num"+(mycard%10)+".src");
+		if(spflag[0]>0) document.images[13].src=condition1.src;//毒
+		else document.images[13].src=condition4.src;
+		if(spflag[1]>0) document.images[14].src=condition2.src;//雷
+		else document.images[14].src=condition4.src;
+		if(spflag[2]>0) document.images[15].src=condition3.src;//巨
+		else document.images[15].src=condition4.src;
+		if(spflag[3]>0) document.images[27].src=condition1.src;
+		else document.images[27].src=condition4.src;
+		if(spflag[4]>0) document.images[28].src=condition2.src;
+		else document.images[28].src=condition4.src;
+		if(spflag[5]>0) document.images[29].src=condition3.src;
+		else document.images[29].src=condition4.src;
+	}
+}
+
+function cardselect(n){
+	if(gameFlag){
+		if(spflag[4]==0){
+			if(n<5 && document.images[30+n].src!=card99.src){
+				if(field[0]==99){
+					document.images[18].src=document.images[30+n].src;
+					document.images[30+n].src=card99.src;
+					field[0]=n;
+				}
+				else{
+					if(field[1]==99){
+						document.images[19].src=document.images[30+n].src;
+						document.images[30+n].src=card99.src;
+						field[1]=n;
+					}
+					else{
+						alert("出せるカードは２枚までよッ！");
+					}
+				}
+			}
+			if(n>=5 && n<7 && document.images[13+n].src!=card99.src){
+				document.images[30+field[n-5]].src=document.images[13+n].src;
+				document.images[13+n].src=card99.src;
+				field[n-5]=99;
+				if(n==5 && field[1]!=99){//カードを詰める
+					document.images[18].src=document.images[19].src;
+					document.images[19].src=card99.src;
+					field[0]=field[1];
+					field[1]=99;
+				}
+			}
+		}
+		else alert("眠っているためカードを出せません");
+	}
+}
+
+function syoubu(){
+	//１枚以上
+	if((field[0]<5 || spflag[4]>0) && gameFlag){
+		gameFlag=false;
+		//カードオープン
+		if(spflag[1]==0){
+			eval("document.images[16].src=card"+(enedeck[field[2]]+1)+".src;");
+			document.images[field[2]+1].src=card99.src;
+
+			//カード枚数を減らす
+			enecard--;
+			mycard--;
+			if(field[1]<5) mycard--;
+
+			if(field[3]<5){
+				eval("document.images[17].src=card"+(enedeck[field[3]]+1)+".src;");
+				document.images[field[3]+1].src=card99.src;
+				enecard--;
+			}
+			else document.images[17].src=card99.src;
+		}
+
+		timeid=setInterval("syoubu2();",1000);
+	}
+	else alert("何かカードを出しなさいよッ！");
+}
+
+function syoubu2(){
+	clearInterval(timeid);
+	var sousaiFlag=false;
+	//同カードは相殺
+	//alert(pldeck[field[0]]+","+pldeck[field[1]]+","+enedeck[field[2]]+","+enedeck[field[3]]);
+	msg="<table border=5 cellspacing=0 width=220><tr><td align=center bgcolor=FFFFFF><font color=black>";
+	for(i=0;i<2;i++){
+		for(j=2;j<4;j++){
+			if(pldeck[field[i]]==enedeck[field[j]] && field[i]!=99){
+				//alert("相殺！"+i+","+j);
+				field[i]=99;
+				field[j]=99;
+				document.images[18+i].src=card99.src;
+				document.images[14+j].src=card99.src;
+				if(!sousaiFlag) msg+="同じカードを出した！<br>"
+				sousaiFlag=true;
+			}
+		}
+	}
+
+	//封印を出すと特殊カードは消える
+	if(pldeck[field[0]]==6 || pldeck[field[1]]==6){
+		for(i=0;i<2;i++){
+			if((enedeck[field[i+2]]>2 && enedeck[field[i+2]]<8)||enedeck[field[i+2]]>10){
+				field[i+2]=99;
+				document.images[16+i].src=card99.src;
+				fuuinFlag=true;
+			}
+		}
+	}
+	if(enedeck[field[2]]==6 || enedeck[field[3]]==6){
+		for(i=0;i<2;i++){
+			if((pldeck[field[i]]>2 && pldeck[field[i]]<8) || pldeck[field[i]]>10){
+				field[i]=99;
+				document.images[18+i].src=card99.src;
+				fuuinFlag=true;
+			}
+		}
+	}
+	if(fuuinFlag){
+		msg+="<font color=FFA360>サポートカードを<BR>吹き飛ばした！</font><br>";
+		sousaiFlag=true;
+	}
+	//薬の使用をチェック
+	if(pldeck[field[0]]==14 || pldeck[field[1]]==14){//自分
+		msg+="<font color=7683FF>アナタはミルク飲みを使った</font><br>";
+		mylife+=10;
+		imgcheck(1);
+		sousaiFlag=true;
+	}
+	if(enedeck[field[2]]==14 || enedeck[field[3]]==14){//敵
+		msg+="<font color=D13D3D>ラブリナはミルク飲みを使った</font><br>";
+		enelife+=10;
+		imgcheck(1);
+		sousaiFlag=true;
+	}
+	//ALLを出すとラブリナのジャンケン手は消える
+	if(pldeck[field[0]]==20 || pldeck[field[1]]==20){//自分
+		msg+="<font color=7683FFF>神のイカズチ！！<br>ラブリナの<br>バトルカードが消滅！！</font><br>";
+		for(i=0;i<2;i++){
+			if(enedeck[field[i+2]]<3 || (enedeck[field[i+2]]>7 && enedeck[field[i+2]]<11)){
+				field[i+2]=99;
+				document.images[16+i].src=card99.src;
+			}
+		}
+		sousaiFlag=true;
+	}
+	var fuuinFlag=false;
+
+	msg+="</font></td></tr></table>";
+	outputLAYER("mainwin",msg);
+	moveCENTER();
+
+	//手の代入
+	for(i=0;i<6;i++) te[i]=0;
+	for(i=0;i<4;i++){
+		if(field[i]!=99){
+			var tempcard=99;
+			if(i<2) tempcard=pldeck[field[i]];
+			else tempcard=enedeck[field[i]];
+
+			if(tempcard==0 || tempcard==8 || tempcard==9 || tempcard==20){//フシギダネ
+				if(i<2) te[0]++;
+				else te[3]++;
+			}
+			if(tempcard==1 || tempcard==8 || tempcard==10 || tempcard==20){//ゼニガメ
+				if(i<2) te[1]++;
+				else te[4]++;
+			}
+			if(tempcard==2 || tempcard==9 || tempcard==10 || tempcard==20){//ヒトカゲ
+				if(i<2) te[2]++;
+				else te[5]++;
+			}
+		}
+	}
+
+	//alert(te[0]+","+te[1]+","+te[2]+","+te[3]+","+te[4]+","+te[5]);
+	if(sousaiFlag) timeid=setInterval("syoubu3();",1000);
+	else syoubu3();
+}
+
+function syoubu3(){
+	clearInterval(timeid);
+	var down=0;//動けない人数
+	var mescount=0;//メッセージ行数
+	var dmg1=0;//与えたダメージ
+	var dmg2=0;//受けたダメージ
+	msg="<table border=5 cellspacing=0 width=220><tr><td align=center bgcolor=FFFFFF><font color=black>";
+	if(te[0]==0 && te[1]==0 && te[2]==0){//プレイヤーダウン
+		down++;
+		msg+="アナタは動けない！<br>";
+		mescount++;
+	}
+	if(te[3]==0 && te[4]==0 && te[5]==0){//敵ダウン
+		down++;
+		msg+="ラブリナは動けない！<br>";
+		mescount++;
+	}
+	if(down==0){
+		//ジャンケン判定
+		for(i=0;i<3;i++){
+			if(te[i]>0 && te[(i+1)%3+3]>0){//アナタの勝ち
+				msg+="<font color=7683FF>アナタは"+cardtype[i]+"で勝ち</font><br>";
+				dmg1+=te[i]*te[(i+1)%3+3]*10;
+				mescount+=3;
+			}
+			if(te[i]>0 && te[(i-1+3)%3+3]>0){//ラブリナの勝ち
+				msg+="<font color=D13D3D>アナタは"+cardtype[i]+"で負け</font><br>";
+				dmg2+=te[i]*te[(i-1+3)%3+3]*10;
+				mescount+=3;
+			}
+		}
+	}
+	else{
+		if(down==1){
+			//どちらかがダウン
+			if(te[0]==0 && te[1]==0 && te[2]==0){
+				msg+="<font color=D13D3D>自分の場がガラ空きだ！</font><br>";
+				dmg2+=(te[3]+te[4]+te[5])*10;
+				mescount+=2;
+			}
+			else{
+				msg+="<font color=7683FF>ラブリナの場がガラ空きだ！</font><br>";
+				dmg1+=(te[0]+te[1]+te[2])*10;
+				mescount+=2;
+			}
+		}
+		else{
+			//２人ともダウン
+			msg+="何も起こらなかった<br>";
+			mescount++;
+		}
+	}
+	var bai;//ダメージの倍率
+
+	if(dmg1>0){
+		spflag[3]=0;
+		bai=1;
+		if(bombFlag){//爆
+			msg+="<font color=7683FF>プレゼントが爆発！</font><br>";
+			bai=bai*2;
+		}
+		if(pldeck[field[0]]==3 || pldeck[field[1]]==3){//自分必殺
+			bai=bai*1.5;
+			msg+="<font color=7683FF>遠吠えで攻撃力アップ！</font><br>";
+		}
+		if(enedeck[field[2]]==4 || enedeck[field[3]]==4){//ラブリナ盾
+			bai=bai/2;
+			msg+="<font color=D13D3D>ラブリナはﾘﾌﾚｸﾀｰでガード！</font><br>";
+		}
+		if(pldeck[field[0]]==5 || pldeck[field[1]]==5){//自分宝箱
+			var getrare=Math.floor(Math.random()*333);
+			var borderrare=0;
+			var takaraFlag=false;
+			for(i=0;i<12;i++){
+				borderrare+=30000/rareexp[i];
+				if(getrare<borderrare && !takaraFlag){
+					rare[i]++;
+					msg+="<font color=FFA360>ジグザグマは</font><br>";
+					msg+="<font color=FFA360>"+cardtype[i+8]+"カードを拾ってきた</font><br>";
+					takaraFlag=true;
+				}
+			}
+		}
+		if(pldeck[field[0]]==11 || pldeck[field[1]]==11){//自分竜巻
+			for(i=0;i<5;i++){
+				enedeck[i]=99;
+				document.images[i+1].src=card99.src;
+			}
+			//残カードの計算
+			var nokori=0;
+			for(i=0;i<36;i++){
+				if(enedeck[i]!=99) nokori++;
+			}
+			enecard=nokori;
+			msg+="<font color=7683FF>ラブリナの場の<br>カードを燃やした！</font><br>";
+			//alert(enedeck);//debug
+		}
+		if(enedeck[field[2]]==12 || enedeck[field[3]]==12){//ラブリナ透明
+			bai=0;
+			msg+="<font color=D13D3D>ラブリナは身代わりを使った</font><br>";
+		}
+		if(pldeck[field[0]]==13 || pldeck[field[1]]==13){//自分巨大
+			spflag[5]=4;
+			msg+="<font color=7683FF>剣の舞を使った！</font><br>";
+		}
+		if(spflag[5]>0 && spflag[5]<4){
+			bai=bai*1.5;
+			msg+="<font color=7683FF>剣の舞が発動中！！</font><br>";
+		}
+
+		if(pldeck[field[0]]==15 || pldeck[field[1]]==15){//自分毒蛇
+			spflag[0]=99;
+			msg+="<font color=7683FF>毒ガスがラブリナを襲う！</font><br>";
+		}
+		if(pldeck[field[0]]==17 || pldeck[field[1]]==17){//自分龍
+			bai=bai*3;
+			msg+="<font color=7683FF>手助けで攻撃力三倍！！</font><br>";
+		}
+		if(pldeck[field[0]]==18 || pldeck[field[1]]==18){//自分稲妻
+			spflag[1]=2;
+			msg+="<font color=7683FF>ラブリナを眠らせた！</font><br>";
+		}
+		if(enedeck[field[2]]==19 || enedeck[field[3]]==19){//ラブリナ吸収
+			enelife=enelife+Math.floor(dmg1*bai);
+			msg+="<font color=D13D3D>ラブリナは願い事で<br>ダメージ分回復した</font><br>";
+			bai=0;
+		}
+		if(enedeck[field[2]]==16 || enedeck[field[3]]==16){//ラブリナバリア
+			mylife=Math.max(0,mylife-Math.floor(dmg1*bai));
+			msg+="<font color=D13D3D>しかしカウンターで<br>はね返された！</font><br>";
+			msg+="<font color=D13D3D>"+Math.floor(dmg1*bai)+"のダメージを受けた</font><br>";
+			document.images[0].src=waku7.src;
+			document.images[35].src=waku2.src;
+			bai=0;
+		}
+
+		if(pldeck[field[0]]>2 || pldeck[field[1]]>2 || enedeck[field[2]]>2 || enedeck[field[3]]>2) mescount++;
+
+		if(bai>0){
+			msg+="<font color=7683FF>"+Math.floor(dmg1*bai)+"のダメージを与えた</font><br>";
+			document.images[0].src=waku6.src;
+			document.images[35].src=waku3.src;
+			enelife=Math.max(0,enelife-Math.floor(dmg1*bai));
+		}
+		else msg+="<font color=D13D3D>ラブリナのダメージは減らない</font><br>";
+		mescount++;
+	}
+	if(dmg2>0){
+		spflag[0]=0;
+		bai=1;
+		if(bombFlag){//爆
+			msg+="<font color=D13D3D>プレゼントが爆発！</font><br>";
+			bai=bai*2;
+		}
+		if(enedeck[field[2]]==3 || enedeck[field[3]]==3){//ラブリナ必殺
+			bai=bai*1.5;
+			msg+="<font color=D13D3D>遠吠えで攻撃力アップ！</font><br>";
+		}
+		if(pldeck[field[0]]==4 || pldeck[field[1]]==4){//自分盾
+			bai=bai/2;
+			msg+="<font color=7683FF>アナタはﾘﾌﾚｸﾀｰでガード！</font><br>";
+		}
+		if(enedeck[field[2]]==11 || enedeck[field[3]]==11){//ラブリナ竜巻
+			for(i=0;i<5;i++){
+				pldeck[i]=99;
+				document.images[i+30].src=card99.src;
+			}
+			//残カードの計算
+			var nokori=0;
+			for(i=0;i<36;i++){
+				if(pldeck[i]!=99) nokori++;
+			}
+			mycard=nokori;
+			msg+="<font color=D13D3D>場のカードが燃やされた！</font><br>";
+			//alert(pldeck);//debug
+		}
+		if(pldeck[field[0]]==12 || pldeck[field[1]]==12){//自分透明
+			bai=0;
+			msg+="<font color=7683FF>アナタは身代わりを使った</font><br>";
+		}
+		if(enedeck[field[2]]==13 || enedeck[field[3]]==13){//ラブリナ巨大
+			spflag[2]=4;
+			msg+="<font color=D13D3D>ラブリナは剣の舞を使った！</font><br>";
+		}
+		if(spflag[2]>0 && spflag[2]<4){
+			bai=bai*1.5;
+			msg+="<font color=D13D3D>剣の舞が発動中！！</font><br>";
+		}
+		if(enedeck[field[2]]==15 || enedeck[field[3]]==15){//ラブリナ毒蛇
+			spflag[3]=99;
+			msg+="<font color=D13D3D>毒ガスを吸った！</font><br>";
+		}
+		if(enedeck[field[2]]==17 || enedeck[field[3]]==17){//ラブリナ龍
+			bai=bai*3;
+			msg+="<font color=D13D3D>ラブリナは手助けを使った！</font><br>";
+		}
+		if(enedeck[field[2]]==18 || enedeck[field[3]]==18){//ラブリナ稲妻
+			spflag[4]=2;
+			msg+="<font color=D13D3D>催眠術で眠ってしまった</font><br>";
+		}
+		if(pldeck[field[0]]==19 || pldeck[field[1]]==19){//自分吸収
+			mylife=mylife+Math.floor(dmg2*bai);
+			msg+="<font color=7683FF>願い事でダメージ分回復した</font><br>";
+			bai=0;
+		}
+		if(pldeck[field[0]]==16 || pldeck[field[1]]==16){//自分バリア
+			enelife=Math.max(0,enelife-Math.floor(dmg2*bai));
+			msg+="<font color=7683FF>カウンターではね返した！</font><br>";
+			msg+="<font color=7683FF>"+Math.floor(dmg2*bai)+"のダメージを与えた</font><br>";
+			document.images[0].src=waku6.src;
+			document.images[35].src=waku3.src;
+			bai=0;
+		}
+
+		if(bai>0){
+			msg+="<font color=D13D3D>"+Math.floor(dmg2*bai)+"のダメージを受けた</font><br>";
+			if(dmg1==0) document.images[0].src=waku7.src;
+			document.images[35].src=waku2.src;
+			mylife=Math.max(0,mylife-Math.floor(dmg2*bai));
+		}
+		else msg+="<font color=7683FF>自分のダメージは減らない</font><br>";
+		mescount++;
+	}
+
+	//毒
+	if(spflag[3]>0){
+		msg+="<font color=7683FF>アナタは毒で５のダメージ</font><br>";
+		document.images[35].src=waku2.src;
+		mylife=Math.max(0,mylife-5);
+		mescount++;
+	}
+	if(spflag[0]>0){
+		msg+="<font color=D13D3D>ラブリナは毒で５のダメージ</font><br>";
+		document.images[0].src=waku6.src;
+		enelife=Math.max(0,enelife-5);
+		mescount++;
+	}
+
+	bombFlag=false;
+	//爆弾
+	if(pldeck[field[0]]==7 || pldeck[field[1]]==7 || enedeck[field[2]]==7 || enedeck[field[3]]==7){
+		bombFlag=true;
+		msg+="<font color=FFA360>プレゼントを置いた！</font><br>";
+	}
+
+	msg+="<p align=right><a href='JavaScript:seisan();' title='Click Here'><font color=black>▼</font></a></p></font></td></tr></table>";
+	outputLAYER("mainwin",msg);
+	moveCENTER();
+
+	//timeid=setInterval("seisan();",mescount*500)
+}
+
+function seisan(){
+	//清算
+	clearInterval(timeid);
+	imgcheck(0);
+	//勝利条件チェック
+	if(mycard<=0 || mylife<=0){
+		alert("アナタは負けてしまった…。ゲームオーバー");
+		outputLAYER("mainwin","");
+		gameFlag=false;
+	}
+	else{
+		if(enecard<=0 || enelife<=0){
+			alert("ラブリナに勝った！");
+			var bonusexp=0;
+			bonusexp=(36-turn)*30+mycard*50+mylife*10;
+			exp+=bonusexp;
+			totalexp+=bonusexp;
+			monsteralive[eneid]=false;
+			msg="<table border=5 cellspacing=0 width=330><tr><td align=center bgcolor=FFFFFF><font color=black><img src='waku8.gif'>あ、ありえな～い！！ムキー！！<br><font size=-1>所要ターン数："+turn;
+			msg+="  残り体力："+mylife;
+			msg+="  残りカード："+mycard;
+			msg+="</font><br>"+bonusexp+" 円の賞金を獲得！！<br>";
+			bossFlag=true;//7匹倒すと出現
+			for(i=0;i<7;i++){
+				if(monsteralive[i]) bossFlag=false;
+			}
+			if(eneid==7) msg+="<a href='JavaScript:ending();'><font color=black>NEXT</font></a>";
+			else{
+				msg+="<a href='JavaScript:stgselect();'><font color=black>次のレベルに挑戦</font></a>";
+
+			}
+			msg+="</font></td></tr></table>"
+			outputLAYER("mainwin",msg);
+			centermode=8;
+			moveCENTER();
+			if(bossFlag && eneid!=7) alert("「ウキキキーッ！！\nどうやら私を本気の本気にさせたようね！！\n私の最強デッキで勝負よ！」");
+			if(eneid!=7) datasave();
+			else{//cookieを削除
+				var myDate=new Date();
+				var day=60;
+				document.cookie="pswd="+0+";expires="+myDate.toGMTString();
+			}
+		}
+		else{
+			//戦闘は続く
+			for(i=16;i<20;i++) document.images[i].src=card99.src;
+			//カードを詰める
+			for(i=0;i<5;i++){
+				//alert(field[i]+","+i)
+				if(document.images[1+i].src==card99.src) enedeck[i]=99;
+				if(document.images[30+i].src==card99.src) pldeck[i]=99;
+			}
+
+			var msgmsg;
+			for(j=0;j<5;j++){
+				msgmsg="";
+				for(i=0;i<35;i++){
+					if(pldeck[i]==99){
+						pldeck[i]=pldeck[i+1];
+						pldeck[i+1]=99;
+					}
+					if(enedeck[i]==99){
+						enedeck[i]=enedeck[i+1];
+						enedeck[i+1]=99;
+					}
+					msgmsg+=enedeck[i]+",";
+				}
+				msgmsg+=enedeck[35];
+				//alert(msgmsg)
+			}
+			for(i=0;i<5;i++){
+				eval("document.images[i+1].src=card"+Math.min(enedeck[i]+1,99)+".src;");
+				eval("document.images[i+30].src=card"+Math.min(pldeck[i]+1,99)+".src;");
+			}
+			gameFlag=true;
+			//変数の初期化
+			for(i=0;i<4;i++) field[i]=99;
+			for(i=0;i<6;i++) te[i]=0;
+			comthink();
+		}
+	}
+}
+
+function ending(){
+	msg="<table border=5 cellspacing=0 width=360><tr><td align=center bgcolor=FFFFFF><font color=black>";
+	msg+="<img src='waku5.gif'><br>★★★ゲームクリアー★★★<br>ムキキー！なんでこんなに強いワケ～ッ！<br>・・・くやしいけど私の負けは負けね。<br>私に勝ったごほうびに<br>ラブリナファンクラブへの入会を許してあげるわ！<br>会員費は月1500円よ！！<br><br>(おつかれ様でした。ゲーム終了です。)";
+	msg+="</font></td></tr></table>";
+	outputLAYER("mainwin",msg);
+	centermode=2;
+	moveCENTER();
+
+}
+
+function datasave(){//cookie
+	cookieq=confirm("ここまでの記録を保存しますか？\n（カード、おこづかい、クリアしたレベルが保存されます）");
+	if(cookieq){
+		var myDate=new Date();
+		var day=60;
+		var pswd="";//保存するデータ
+		for(i=0;i<8;i++){
+			pswd+=monsteralive[i]+",";
+		}
+		for(i=0;i<21;i++){
+			pswd+=mydeck[i]+",";
+		}
+		for(i=0;i<13;i++){
+			pswd+=rare[i]+",";
+		}
+		pswd+=exp+","+totalexp;
+		myDate.setTime(myDate.getTime()+(day*24*60*60*1000));
+		document.cookie="pswd="+pswd+";expires="+myDate.toGMTString();
+		alert("保存しました。");
+	}
+
+}
+
+</SCRIPT>
+<STYLE type="text/css">
+<!--
+element.style {
+    left: 90px;
+    top: 130px;
+}
+.default {
+  position:absolute;
+  visibility:visible;
+  font-family:Osaka,Arial;
+  color:#000000;
+  font-size:11pt;
+  z-index:3;
+}
+a:hover {
+  color:#ff0000 ;
+}
+<!---->
+</STYLE>
+</HEAD>
+<BODY topmargin="10" marginwidth="10" marginheight="10" leftmargin="10" onload="imgset();" onResize="moveCENTER();" background="../img_pokesho/p_background.gif">
+<TABLE border="0" cellpadding="5" cellspacing="0" align="center">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#FFCDCD" align="center"><IMG src="waku5.gif" alt="ウフフ…、ぼうや！お姉さんが遊んであげるわ！！"><BR>
+      <B><FONT size="-1">ラブリナ</FONT></B></TD>
+      <TD bgcolor="#FFCDCD"><IMG src="ura.gif"></TD>
+      <TD bgcolor="#FFCDCD"><IMG src="ura.gif"></TD>
+      <TD bgcolor="#FFCDCD"><IMG src="ura.gif"></TD>
+      <TD bgcolor="#FFCDCD"><IMG src="ura.gif"></TD>
+      <TD bgcolor="#FFCDCD"><IMG src="ura.gif"></TD>
+      <TD bgcolor="#FFCDCD"><IMG src="life.gif" alt="ヒットポイント"> <IMG src="1.gif"><IMG src="0.gif"><IMG src="0.gif"><BR>
+      <IMG src="card.gif" alt="山札と手札の総数"> <IMG src="3.gif"><IMG src="6.gif"><BR>
+      <IMG src="doku.gif" alt="毒で毎ターン5ダメージ"><IMG src="rai.gif" alt="眠って１ターン休み"><IMG src="kyo.gif" alt="３ターン与えるダメージが1.5倍"></TD>
+    </TR>
+    <TR>
+      <TD colspan="7" align="center" bgcolor="#ff7575"><FONT size="-1"><B>あいての場</B></FONT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#FFCDCD"><IMG src="ura.gif"></TD>
+      <TD bgcolor="#FFCDCD"><IMG src="ura.gif"></TD>
+      <TD colspan="3" bgcolor="#cccccc"><FONT color="cccccc">1</FONT></TD>
+      <TD bgcolor="#C9DFFF"><A href="JavaScript:cardselect(5)"><IMG src="ura.gif" border="0"></A></TD>
+      <TD bgcolor="#C9DFFF"><A href="JavaScript:cardselect(6)"><IMG src="ura.gif" border="0"></A></TD>
+    </TR>
+    <TR>
+      <TD colspan="7" align="center" bgcolor="#7777ff"><FONT size="-1"><B>自分の場</B></FONT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#C9DFFF"><IMG src="life.gif" alt="ヒットポイント"> <IMG src="1.gif"><IMG src="0.gif"><IMG src="0.gif"><BR>
+      <IMG src="card.gif" alt="山札と手札の総数">
+      ''+mycard/10+'' <IMG src="3.gif">
+      ''+mycard%10+'' <IMG src="6.gif">
+      <BR>
+      <IMG src="doku.gif" alt="毒で毎ターン5ダメージ"><IMG src="rai.gif" alt="眠って１ターン休み"><IMG src="kyo.gif" alt="３ターン与えるダメージが1.5倍"></TD>
+      <TD bgcolor="#C9DFFF"><A href="JavaScript:cardselect(0)"><IMG src="ura.gif" border="0"></A></TD>
+      <TD bgcolor="#C9DFFF"><A href="JavaScript:cardselect(1)"><IMG src="ura.gif" border="0"></A></TD>
+      <TD bgcolor="#C9DFFF"><A href="JavaScript:cardselect(2)"><IMG src="ura.gif" border="0"></A></TD>
+      <TD bgcolor="#C9DFFF"><A href="JavaScript:cardselect(3)"><IMG src="ura.gif" border="0"></A></TD>
+      <TD bgcolor="#C9DFFF"><A href="JavaScript:cardselect(4)"><IMG src="ura.gif" border="0"></A></TD>
+      <TD bgcolor="#C9DFFF" align="center"><IMG src="waku1.gif" alt="落ち着いて考えてくださいね。"><BR>
+      <B><FONT size="-1">アナタ</FONT></B></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<DIV class="default" id="mainwin"></DIV>
+<P align="center"><BR>
+</P>
+<CENTER>
+<TABLE border="0" bgcolor="#ffffff">
+  <TBODY>
+    <TR>
+      <TD colspan="6" bgcolor="#ffefd0"><B><IMG src="../img_pokesho/p_midashi.gif" width="16" height="15" border="0">ゲームのルール</B></TD>
+    </TR>
+    <TR>
+      <TD colspan="4"><FONT size="-1">・フシギダネ、ヒトカゲ、ゼニガメのカードを使い、ジャンケンの要領でカードバトルをします。<BR>
+      ・１ターンに１枚か２枚、バトルフィールドにカードを出します。<BR>
+      ・バトルに勝つことで相手のHPに10のダメージを与えます。相手のHP0にすれば勝ちです。<BR>
+      ・相手とまったく同じカードを出した場合、そのカードは除外されます。<BR>
+      ・複数のバトルカードを出した場合、すべての組み合わせでジャンケン判定を行います。<BR>
+      ・ゲームは36枚以内のカードを使ってプレイします。36枚よりカードを減らすとHPが増えます。<BR>
+      ・ゲーム中にカードが0になると強制的に負けになります。<BR>
+      ・勝負に勝つと賞金がもらえます。賞金で新しいカードを買ってデッキに加えることができます。<BR>
+      ・全レベルのラブリナを倒すことができればゲームクリアです。<BR>
+      ・ゲームデータはCookieを使ってセーブが可能です。(数日で消えます)<BR>
+      ・ゲームに負けるとゲームオーバーです。やりなおす時はページに入りなおしてください。<BR>
+      </FONT></TD>
+      <TD colspan="2"><IMG src="aishou.gif" width="179" height="183" border="0"></TD>
+    </TR>
+    <TR>
+      <TD colspan="6" bgcolor="#ffefd0"><B><IMG src="../img_pokesho/p_midashi.gif" width="16" height="15" border="0">カードの種類</B></TD>
+    </TR>
+    <TR>
+      <TD colspan="2"><IMG src="gu.gif" width="60" height="90" border="0"><IMG src="pa.gif" width="60" height="90" border="0"><IMG src="ti.gif" width="60" height="90" border="0">　</TD>
+      <TD colspan="2"><IMG src="gt.gif" width="60" height="90" border="0"><IMG src="gp.gif" width="60" height="90" border="0"><IMG src="tp.gif" width="60" height="90" border="0">　</TD>
+      <TD colspan="2"><IMG src="fuuin.gif" width="60" height="90" border="0"><IMG src="box.gif" width="60" height="90" border="0"><IMG src="yaku.gif" width="60" height="90" border="0"></TD>
+    </TR>
+    <TR>
+      <TD colspan="2"><B>バトルカード</B><BR>
+      <FONT size="-1">ゲームのメインカード。タイプの相性で<BR>
+      勝敗を決める。負けたら10ダメージ。</FONT></TD>
+      <TD colspan="2"><B>ダブルバトルカード</B><BR>
+      <FONT size="-1">1枚でバトルカード二枚分の<BR>
+      働きをする。二匹バラバラに戦う。</FONT></TD>
+      <TD colspan="2"><B>サポートカード</B><BR>
+      <FONT size="-1">一定条件で発動。<BR>
+      特殊効果でゲームを有利にする。</FONT></TD>
+    </TR>
+    <TR>
+      <TD colspan="6" bgcolor="#ffefd0"><B><IMG src="../img_pokesho/p_midashi.gif" width="16" height="15" border="0">サポートカードの効果</B></TD>
+    </TR>
+    <TR>
+      <TD><IMG src="hissatsu.gif" width="60" height="90" border="0"></TD>
+      <TD><B>遠吠え</B><BR>
+      <FONT size="-1">勝負に勝つと発動。<BR>
+      相手に与える<BR>
+      ダメージを1.5倍化。</FONT></TD>
+      <TD><IMG src="shield.gif" width="60" height="90" border="0"></TD>
+      <TD><B>リフレクター</B><BR>
+      <FONT size="-1">勝負に負けると発動。<BR>
+      相手から受ける<BR>
+      ダメージを半減。</FONT></TD>
+      <TD><IMG src="box.gif" width="60" height="90" border="0"></TD>
+      <TD><B>物拾い</B><BR>
+      <FONT size="-1">勝負に勝つと発動。<BR>
+      カードを一枚ゲット。<BR>
+      次回から使える。</FONT></TD>
+    </TR>
+    <TR>
+      <TD><IMG src="fuuin.gif" width="60" height="90" border="0"></TD>
+      <TD><B>吹き飛ばし</B><BR>
+      <FONT size="-1">バトル時発動。<BR>
+      相手のサポートカードを<BR>
+      除外。</FONT></TD>
+      <TD><IMG src="bomb.gif" width="60" height="90" border="0"></TD>
+      <TD><B>プレゼント</B><BR>
+      <FONT size="-1">バトル後発動。<BR>
+      次のターンで<BR>
+      負けた方が受ける<BR>
+      ダメージ二倍化。</FONT></TD>
+      <TD><IMG src="tatsu.gif" width="60" height="90" border="0"></TD>
+      <TD><B>手札焼き</B><BR>
+      <FONT size="-1">勝負に勝つと発動。<BR>
+      相手の場のカードを<BR>
+      全て除外。</FONT></TD>
+    </TR>
+    <TR>
+      <TD><IMG src="toumei.gif" width="60" height="90" border="0"></TD>
+      <TD><B>身代わり</B><BR>
+      <FONT size="-1">勝負に負けると発動。<BR>
+      バトルカードからの<BR>
+      ダメージを防ぐ。</FONT></TD>
+      <TD><IMG src="big.gif" width="60" height="90" border="0"></TD>
+      <TD><B>剣の舞</B><BR>
+      <FONT size="-1">勝負に勝つと発動。<BR>
+      以降３ターンの間<BR>
+      ダメージを1.5倍化。</FONT></TD>
+      <TD><IMG src="yaku.gif" width="60" height="90" border="0"></TD>
+      <TD><B>ミルク飲み</B><BR>
+      <FONT size="-1">バトル時に発動。<BR>
+      HPを10回復。</FONT></TD>
+    </TR>
+    <TR>
+      <TD><IMG src="snake.gif" width="60" height="90" border="0"></TD>
+      <TD><B>毒ガス</B><BR>
+      <FONT size="-1">勝負に勝つと発動。<BR>
+      相手を毒状態にして<BR>
+      相手が勝負に勝つまで<BR>
+      毎ターン５のダメージ。</FONT></TD>
+      <TD><IMG src="barrier.gif" width="60" height="90" border="0"></TD>
+      <TD><B>カウンター</B><BR>
+      <FONT size="-1">勝負に負けると発動。<BR>
+      相手から受ける<BR>
+      ダメージを０にし<BR>
+      その分を相手に与える。</FONT></TD>
+      <TD><IMG src="dragon.gif" width="60" height="90" border="0"></TD>
+      <TD><B>手助け</B><BR>
+      <FONT size="-1">勝負に勝つと発動。<BR>
+      相手に与える<BR>
+      ダメージを３倍化。</FONT></TD>
+    </TR>
+    <TR>
+      <TD><IMG src="inazuma.gif" width="60" height="90" border="0"></TD>
+      <TD><B>催眠術</B><BR>
+      <FONT size="-1">勝負に勝つと発動。<BR>
+      相手を１ターン<BR>
+      行動不能にする。</FONT></TD>
+      <TD><IMG src="kyusyu.gif" width="60" height="90" border="0"></TD>
+      <TD><B>願い事</B><BR>
+      <FONT size="-1">勝負に負けると発動。<BR>
+      相手から受ける<BR>
+      ダメージを０にし<BR>
+      その分を自分のHPに加える。</FONT></TD>
+      <TD><IMG src="all.gif" width="60" height="90" border="0"></TD>
+      <TD><B>カミナリ</B><BR>
+      <FONT size="-1">バトル時発動。<BR>
+      相手のバトルカードを<BR>
+      除外して<BR>
+      相手に30の<BR>
+      ダメージを与える。</FONT></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<HR>
+<P>「ジャンカード」作者：白富士</P>
+</BODY>
+</HTML>
